@@ -1,7 +1,23 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+require 'json'
+
+puts "Cleaning up database..."
+Book.destroy_all
+puts "Database cleaned"
+
+url = "https://fakerapi.it/api/v1/books?_quantity=10"
+
+
+puts "Importing books from page."
+books = JSON.parse(open(url).read)['data']
+books.each do |book|
+  puts "Creating #{book['title']}"
+  Book.create!(
+    title: books['title'],
+    author: books['author'],
+    description: books['description']
+)
+end
+
+  
+puts "Books created"
