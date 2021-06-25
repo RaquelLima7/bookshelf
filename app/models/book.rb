@@ -1,4 +1,4 @@
-class Book < ApplicationRecord::Base
+class Book < ApplicationRecord
   include Gravtastic
   gravtastic
 end

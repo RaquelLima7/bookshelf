@@ -19,5 +19,4 @@ books.each do |book|
 )
 end
 
-  
 puts "Books created"
